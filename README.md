@@ -10,12 +10,6 @@
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![ShadcnUI](https://img.shields.io/badge/shadcn/ui-000000?style=for-the-badge&logo=shadcn/ui&logoColor=white)
 
-- **Vite** - Build tool yang cepat dan ringan untuk pengembangan aplikasi.
-- **React** - Library JavaScript untuk membangun antarmuka pengguna.
-- **TypeScript** - Superset dari JavaScript yang menambahkan tipe statis.
-- **TailwindCSS** - Framework CSS utilitas untuk desain yang responsif dan custom.
-- **ShadCN** - Komponen UI berbasis TailwindCSS untuk desain yang konsisten dan mudah digunakan.
-
 ## Instalasi
 
 Untuk memulai proyek ini secara lokal, ikuti langkah-langkah berikut:
