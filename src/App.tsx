@@ -1,14 +1,16 @@
-import HeroSection from "./components/Hero";
-import FeaturedMovie from "./components/FeaturedMovie";
-import Navbar from "./components/Navbar";
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import Detail from "./pages/Detail";
+import Layout from "./layout";
 
 function App() {
   return (
-    <main className="h-full bg-dark-primary">
-      <Navbar />
-      <HeroSection />
-      <FeaturedMovie />
-    </main>
+    <Routes>
+      <Route element={<Layout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/detail/:id" element={<Detail />} />
+      </Route>
+    </Routes>
   );
 }
 
