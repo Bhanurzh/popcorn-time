@@ -1,18 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
+import { Link } from "react-router-dom";
 
-const navLinks = [
-  { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
-  { name: "Services", href: "/services" },
-  { name: "Contact", href: "/contact" },
-];
+const navLinks = [{ name: "Home", href: "/" }];
 
 export default function Navbar() {
   return (
-    <nav className="flex items-center justify-between top-0 z-10 sticky py-2 px-6 bg-dark-primary">
-      <img src="/logo.png" alt="Logo" className="w-16 h-16" />
+    <nav className="flex items-center justify-between top-0 z-20 sticky py-2 px-6 bg-dark-primary">
+      <Link to="/">
+        <img src="/logo.png" alt="Logo" className="w-16 h-16" />
+      </Link>
 
       <div className="hidden md:flex space-x-6">
         {navLinks.map((link) => (
