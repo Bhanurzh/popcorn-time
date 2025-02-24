@@ -10,6 +10,8 @@ import Autoplay from "embla-carousel-autoplay";
 import { formatDate } from "@/utils";
 import { Loader2 } from "lucide-react";
 import useTrendingMovie from "@/hooks/useTrendingMovie";
+import { Button } from "./ui/button";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   const { data, isLoading, error } = useTrendingMovie();
@@ -50,22 +52,35 @@ const HeroSection = () => {
 
           <div className="absolute md:bottom-[300px] bottom-[250px] left-5 text-left text-white max-w-2xl z-10">
             <h1 className="text-3xl md:text-5xl font-bold">
-              {currentMovie?.title ? currentMovie.title : currentMovie.name}
+              {currentMovie?.title || currentMovie?.name}
             </h1>
             <p className="text-sm md:text-base mt-2">
               {currentMovie?.overview}
             </p>
-            <p className="text-sm md:text-base mt-4 font-semibold">
-              {formatDate(
-                currentMovie?.release_date ??
-                  currentMovie?.first_air_date ??
-                  "N/A"
-              )}{" "}
-              |
-              {currentMovie?.vote_average
-                ? `⭐ ${currentMovie.vote_average}`
-                : " Not Rated"}
-            </p>
+            <div className="flex items-center gap-6 mt-4">
+              <p className="text-sm md:text-base font-semibold">
+                {formatDate(
+                  (currentMovie?.release_date ||
+                    currentMovie?.first_air_date) ??
+                    "N/A"
+                )}{" "}
+                |
+                {currentMovie?.vote_average
+                  ? `⭐ ${currentMovie.vote_average.toFixed(1)}`
+                  : " Not Rated"}
+              </p>
+              <Link
+                to={
+                  currentMovie?.media_type === "movie"
+                    ? `/detail/${currentMovie?.id}?type=movie`
+                    : `/detail/${currentMovie?.id}?type=tv`
+                }
+              >
+                <Button className="bg-red-primary hover:bg-white hover:text-red-primary duration-200 transition hover:shadow-[0_0_10px_white] rounded-2xl">
+                  Details
+                </Button>
+              </Link>
+            </div>
           </div>
 
           <div className="relative w-full py-6 px-4">
