@@ -1,5 +1,5 @@
-import FeaturedMovie from "@/components/FeaturedMovie";
-import HeroSection from "@/components/Hero";
+import FeaturedMovie from "@/pages/Home/components/FeaturedMovie";
+import HeroSection from "@/pages/Home/components/Hero";
 
 const Home = () => {
   return (
