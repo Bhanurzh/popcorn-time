@@ -1,8 +1,8 @@
 import { useState } from "react";
-import SearchInput from "./SearchInput";
-import useFeaturedMovie from "@/hooks/useFeaturedMovie";
+import SearchInput from "../../../components/SearchInput";
+import useFeaturedMovie from "@/services/useFeaturedMovie";
 import MovieCard from "./MovieCard";
-import MovieCardSkeleton from "./skeleton/MovieCardSkeleton";
+import MovieCardSkeleton from "../../../components/skeleton/MovieCardSkeleton";
 
 const FeaturedMovie = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
