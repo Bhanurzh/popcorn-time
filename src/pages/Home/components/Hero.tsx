@@ -1,20 +1,14 @@
 import { useEffect, useState } from "react";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "../../../components/ui/carousel";
-import Autoplay from "embla-carousel-autoplay";
 import { formatDate } from "@/utils";
 import { Loader2 } from "lucide-react";
-import useTrendingMovie from "@/services/useTrendingMovie";
 import { Button } from "../../../components/ui/button";
 import { Link } from "react-router-dom";
+import ErrorCard from "@/components/ErrorCard";
+import useGetTrendingFilm from "@/services/useGetTrendingFilm";
+import FilmCarousel from "@/components/FilmCarousel";
 
 const HeroSection = () => {
-  const { data, isLoading, error } = useTrendingMovie();
+  const { data, isLoading, error } = useGetTrendingFilm();
   const [activeIndex, setActiveIndex] = useState(0);
 
   const movies = data?.results ?? [];
@@ -31,26 +25,28 @@ const HeroSection = () => {
   }, [movies.length]);
 
   return (
-    <section className="relative w-full h-[90vh] flex flex-col justify-end">
+    <section
+      className={`relative w-full h-[90vh] flex flex-col ${
+        isLoading || error ? "justify-normal" : "justify-end"
+      }`}
+    >
       {isLoading ? (
         <div className="w-full h-full flex justify-center items-center">
           <Loader2 className="animate-spin text-red-primary" size={48} />
         </div>
       ) : error ? (
-        <div className="w-full h-full flex justify-center items-center text-white">
-          <p>{error}</p>
-        </div>
+        <ErrorCard error={error} customClassName="w-6xl h-[400px]" />
       ) : (
         <>
-          <div className="absolute inset-0 w-full h-full">
+          <figure className="absolute inset-0 w-full h-full">
             <img
               src={`https://image.tmdb.org/t/p/original/${currentMovie?.backdrop_path}`}
               alt={currentMovie?.title}
               className="w-full h-full object-cover brightness-50"
             />
-          </div>
+          </figure>
 
-          <div className="absolute md:bottom-[300px] bottom-[250px] left-5 text-left text-white max-w-2xl z-10">
+          <article className="absolute md:bottom-[300px] bottom-[250px] left-5 text-left text-white max-w-2xl z-10">
             <h1 className="text-3xl md:text-5xl font-bold">
               {currentMovie?.title || currentMovie?.name}
             </h1>
@@ -58,7 +54,7 @@ const HeroSection = () => {
               {currentMovie?.overview}
             </p>
             <div className="flex items-center gap-6 mt-4">
-              <p className="text-sm md:text-base font-semibold">
+              <time className="text-sm md:text-base font-semibold">
                 {formatDate(
                   (currentMovie?.release_date ||
                     currentMovie?.first_air_date) ??
@@ -68,7 +64,7 @@ const HeroSection = () => {
                 {currentMovie?.vote_average
                   ? `⭐ ${currentMovie.vote_average.toFixed(1)}`
                   : " Not Rated"}
-              </p>
+              </time>
               <Link
                 to={
                   currentMovie?.media_type === "movie"
@@ -81,48 +77,16 @@ const HeroSection = () => {
                 </Button>
               </Link>
             </div>
-          </div>
+          </article>
 
           <div className="relative w-full py-6 px-4">
-            <Carousel
-              plugins={[
-                Autoplay({
-                  delay: 3000,
-                  stopOnMouseEnter: true,
-                  stopOnInteraction: false,
-                }),
-              ]}
-              opts={{
-                loop: true,
-                align: "center",
-                containScroll: "trimSnaps",
-                slidesToScroll: 1,
-                watchFocus: true,
-              }}
-              className="w-full mx-auto"
-            >
-              <CarouselContent>
-                {data?.results.map((popularMovie, index) => (
-                  <CarouselItem
-                    key={popularMovie.id}
-                    className="lg:basis-1/8 md:basis-1/5 basis-1/3 px-2 cursor-pointer"
-                    onClick={() => setActiveIndex(index)}
-                  >
-                    <img
-                      src={`https://image.tmdb.org/t/p/w500/${popularMovie.poster_path}`}
-                      alt={popularMovie.title}
-                      className={`md:w-[160px] w-[120px] md:h-[250px] rounded-lg object-cover ${
-                        activeIndex === index
-                          ? "border-[3px] border-red-primary"
-                          : ""
-                      }`}
-                    />
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white p-2 bg-red-primary hover:text-red-primary hover:bg-white transition duration-200 hover:scale-110 border-none md:block hidden" />
-              <CarouselNext className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white p-2 bg-red-primary hover:text-red-primary hover:bg-white transition duration-200 hover:scale-110 border-none md:block hidden" />
-            </Carousel>
+            <FilmCarousel
+              films={data?.results}
+              isUsingCard={false}
+              carouselBasisItem="lg:basis-1/7 md:basis-1/5 basis-1/3 px-2 cursor-pointer"
+              activeItem={activeIndex}
+              setActiveItem={setActiveIndex}
+            />
           </div>
         </>
       )}
