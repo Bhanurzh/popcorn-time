@@ -43,7 +43,7 @@ Untuk memulai proyek ini secara lokal, ikuti langkah-langkah berikut:
    npm run dev
    ```
 
-Aplikasi akan berjalan di `http://localhost:3000`.
+Aplikasi akan berjalan di `http://localhost:5173` jika menggunakan Vite.
 
 ## Fitur
 
