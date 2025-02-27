@@ -1,22 +1,19 @@
 import { useState } from "react";
 import SearchInput from "../../../components/SearchInput";
-import useFeaturedMovie from "@/services/useFeaturedMovie";
-import MovieCard from "./MovieCard";
-import MovieCardSkeleton from "../../../components/skeleton/MovieCardSkeleton";
+import FilmCardSkeleton from "../../../components/skeleton/FilmCardSkeleton";
+import useGetFeaturedMovie from "@/services/useGetFeaturedMovie";
+import FilmCard from "../../../components/FilmCard";
 
 const FeaturedMovie = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const { data, isLoading, error } = useFeaturedMovie(searchTerm);
+  const { data, isLoading, error } = useGetFeaturedMovie(searchTerm);
 
   return (
-    <div className="flex flex-col space-y-4 py-10 px-5 w-full">
-      <div className="flex items-center justify-center">
-        <SearchInput searchTerm={searchTerm} onSearchChange={setSearchTerm} />
-      </div>
+    <section className="flex flex-col space-y-4 py-10 px-5 w-full">
       {isLoading ? (
         <div className="grid grid-cols-2 gap-3 md:gap-5 md:grid-cols-4 lg:grid-cols-5 mt-4">
           {Array.from({ length: 5 }).map((_, index) => (
-            <MovieCardSkeleton key={index} />
+            <FilmCardSkeleton key={index} />
           ))}
         </div>
       ) : error ? (
@@ -25,17 +22,23 @@ const FeaturedMovie = () => {
         </div>
       ) : (
         <>
+          <div className="flex items-center justify-center">
+            <SearchInput
+              searchTerm={searchTerm}
+              onSearchChange={setSearchTerm}
+            />
+          </div>
           <h2 className="text-2xl font-bold text-white sm:text-3xl text-left">
             All Movies
           </h2>
           <ul className="grid grid-cols-2 gap-3 md:gap-5 md:grid-cols-4 lg:grid-cols-5">
-            {data?.results.map((movie) => (
-              <MovieCard key={movie.id} movie={movie} />
+            {data?.results.map((film) => (
+              <FilmCard key={film.id} film={film} />
             ))}
           </ul>
         </>
       )}
-    </div>
+    </section>
   );
 };
 
