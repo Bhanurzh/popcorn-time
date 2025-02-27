@@ -32,7 +32,13 @@ Untuk memulai proyek ini secara lokal, ikuti langkah-langkah berikut:
    npm install
    ```
 
-4. Jalankan aplikasi:
+4. Buat file .env di root proyek dan tambahkan API Key dari TMDB:
+
+   ```bash
+   VITE_TMDB_API_KEY=your_tmdb_api_key
+   ```
+
+5. Jalankan aplikasi:
    ```bash
    npm run dev
    ```
