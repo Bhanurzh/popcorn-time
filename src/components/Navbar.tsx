@@ -22,7 +22,7 @@ export default function Navbar() {
               <li key={link.name}>
                 <Link
                   to={link.href}
-                  className={`font-poppins font-semibold text-lg transition duration-300 ${
+                  className={`font-poppins font-bold text-lg transition duration-300 ${
                     isActive
                       ? "text-red-primary border-b-2 border-red-primary"
                       : "text-white hover:text-red-primary"
@@ -61,7 +61,7 @@ export default function Navbar() {
                   <li key={link.name}>
                     <Link
                       to={link.href}
-                      className={`font-poppins font-semibold text-lg transition duration-300 ${
+                      className={`font-poppins font-bold text-lg transition duration-300 ${
                         isActive
                           ? "text-red-primary border-b-2 border-red-primary"
                           : "text-white hover:text-red-primary"
