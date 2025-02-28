@@ -31,11 +31,11 @@ const FeaturedMovie = () => {
           <h2 className="text-2xl font-bold text-white sm:text-3xl text-left">
             All Movies
           </h2>
-          <ul className="grid grid-cols-2 gap-3 md:gap-5 md:grid-cols-4 lg:grid-cols-5">
+          <div className="grid grid-cols-2 gap-3 md:gap-5 md:grid-cols-4 lg:grid-cols-5">
             {data?.results.map((film) => (
               <FilmCard key={film.id} film={film} />
             ))}
-          </ul>
+          </div>
         </>
       )}
     </section>
