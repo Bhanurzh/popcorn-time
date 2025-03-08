@@ -17,7 +17,7 @@ const FilmCard = ({ film }: { film: Film }) => {
           className="rounded-lg h-auto w-full"
           loading="lazy"
         />
-        <div className="mt-4">
+        <div className="mt-2">
           <h3 className="text-white font-bold text-base line-clamp-1">
             {film.title || film?.name}
           </h3>
