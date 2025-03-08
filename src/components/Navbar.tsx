@@ -3,7 +3,10 @@ import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
-const navLinks = [{ name: "Home", href: "/" }];
+const navLinks = [
+  { name: "Home", href: "/" },
+  { name: "Trending", href: "/trending" },
+];
 
 export default function Navbar() {
   const location = useLocation();
@@ -15,7 +18,7 @@ export default function Navbar() {
       </Link>
 
       <nav aria-label="Main Navigation" className="hidden md:flex">
-        <ul className="flex space-x-6">
+        <ul className="flex items-center space-x-6">
           {navLinks.map((link) => {
             const isActive = location.pathname === link.href;
             return (
@@ -54,7 +57,7 @@ export default function Navbar() {
             <Link to="/">
               <img src="/logo.png" alt="Logo" className="w-16 h-16" />
             </Link>
-            <ul>
+            <ul className="flex flex-col space-y-3">
               {navLinks.map((link) => {
                 const isActive = location.pathname === link.href;
                 return (
