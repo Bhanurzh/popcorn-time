@@ -8,11 +8,13 @@ import {
 } from "./ui/carousel";
 import { Film } from "@/types/shares";
 import FilmCard from "@/components/FilmCard";
+import { Link } from "react-router-dom";
 
 interface FilmCarouselProps {
   films?: Film[];
   carouselBasisItem: string;
   isUsingCard: boolean;
+  cardNoRedirect?: boolean;
   activeItem?: number;
   setActiveItem?: React.Dispatch<React.SetStateAction<number>>;
 }
@@ -21,6 +23,7 @@ const FilmCarousel: React.FC<FilmCarouselProps> = ({
   films,
   carouselBasisItem,
   isUsingCard,
+  cardNoRedirect,
   activeItem,
   setActiveItem,
 }) => {
@@ -47,7 +50,7 @@ const FilmCarousel: React.FC<FilmCarouselProps> = ({
             <CarouselItem key={index} className={carouselBasisItem}>
               <FilmCard film={film} />
             </CarouselItem>
-          ) : (
+          ) : cardNoRedirect ? (
             <CarouselItem
               key={index}
               className={carouselBasisItem}
@@ -56,10 +59,10 @@ const FilmCarousel: React.FC<FilmCarouselProps> = ({
               <img
                 src={`https://image.tmdb.org/t/p/w500/${film.poster_path}`}
                 srcSet={`
-                  https://image.tmdb.org/t/p/w300/${film.poster_path} 300w,
-                  https://image.tmdb.org/t/p/w500/${film.poster_path} 500w,
-                  https://image.tmdb.org/t/p/w780/${film.poster_path} 780w
-                `}
+                    https://image.tmdb.org/t/p/w300/${film.poster_path} 300w,
+                    https://image.tmdb.org/t/p/w500/${film.poster_path} 500w,
+                    https://image.tmdb.org/t/p/w780/${film.poster_path} 780w
+                  `}
                 alt={film.title || film?.name}
                 width={160}
                 height={250}
@@ -68,6 +71,30 @@ const FilmCarousel: React.FC<FilmCarouselProps> = ({
                 }`}
                 loading="lazy"
               />
+            </CarouselItem>
+          ) : (
+            <CarouselItem key={index} className={carouselBasisItem}>
+              <Link
+                to={`/detail/${film.id}?type=${film.name ? "tv" : "movie"}`}
+              >
+                <img
+                  src={`https://image.tmdb.org/t/p/w500/${film.poster_path}`}
+                  srcSet={`
+                    https://image.tmdb.org/t/p/w300/${film.poster_path} 300w,
+                    https://image.tmdb.org/t/p/w500/${film.poster_path} 500w,
+                    https://image.tmdb.org/t/p/w780/${film.poster_path} 780w
+                  `}
+                  alt={film.title || film?.name}
+                  width={160}
+                  height={250}
+                  className={`md:w-[160px] w-[120px] md:h-[250px] rounded-lg object-cover ${
+                    activeItem === index
+                      ? "border-[3px] border-red-primary"
+                      : ""
+                  }`}
+                  loading="lazy"
+                />
+              </Link>
             </CarouselItem>
           )
         )}
