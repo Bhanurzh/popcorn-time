@@ -3,45 +3,50 @@ import { FilmListResponse } from "@/types/apiResponse";
 import { useDebounce } from "use-debounce";
 import { useEffect, useState } from "react";
 
-const useGetFeaturedMovie = (searchTerm: string) => {
-  const [featuredMovie, setFeaturedMovie] = useState<FilmListResponse>();
+const useGetFilms = (
+  searchTerm: string,
+  type: "movie" | "tv",
+  page: number = 1,
+  genreId: string = ""
+) => {
+  const [films, setFilms] = useState<FilmListResponse>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   const [debouncedSearchTerm] = useDebounce(searchTerm, 500);
 
   useEffect(() => {
-    const fetchFeaturedMovie = async (): Promise<void> => {
+    const fetchFilms = async (): Promise<void> => {
       try {
         setIsLoading(true);
         const response = debouncedSearchTerm
           ? await fetch(
-              `${BASE_API_URL}/search/movie?query=${encodeURIComponent(
+              `${BASE_API_URL}/search/${type}?query=${encodeURIComponent(
                 debouncedSearchTerm
               )}`,
               API_OPTIONS
             )
           : await fetch(
-              `${BASE_API_URL}/discover/movie?sort_by=popularity.desc`,
+              `${BASE_API_URL}/discover/${type}?sort_by=popularity.desc&page=${page}&with_genres=${genreId}`,
               API_OPTIONS
             );
         if (!response.ok) {
-          throw new Error("Failed to fetch featured movies");
+          throw new Error("Failed to fetch list film");
         }
         const data = await response.json();
-        setFeaturedMovie(data);
+        setFilms(data);
       } catch (error) {
         console.log(error);
-        setError("Failed to fetch featured movies");
+        setError("Failed to fetch list film");
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchFeaturedMovie();
-  }, [debouncedSearchTerm]);
+    fetchFilms();
+  }, [debouncedSearchTerm, page, type, genreId]);
 
-  return { data: featuredMovie, isLoading, error };
+  return { data: films, isLoading, error };
 };
 
-export default useGetFeaturedMovie;
+export default useGetFilms;
