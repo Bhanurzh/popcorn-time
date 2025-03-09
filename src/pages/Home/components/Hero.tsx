@@ -1,17 +1,18 @@
-import { useEffect, useState } from "react";
+import { lazy, useEffect, useMemo, useState } from "react";
 import { formatDate } from "@/utils";
 import { Loader2 } from "lucide-react";
 import { Button } from "../../../components/ui/button";
 import { Link } from "react-router-dom";
 import ErrorCard from "@/components/ErrorCard";
 import useGetTrendingFilm from "@/services/useGetTrendingFilm";
-import FilmCarousel from "@/components/FilmCarousel";
+
+const FilmCarousel = lazy(() => import("@/components/film/FilmCarousel"));
 
 const HeroSection = () => {
-  const { data, isLoading, error } = useGetTrendingFilm();
+  const { data, isLoading, error } = useGetTrendingFilm(1, "all", "day");
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const movies = data?.results ?? [];
+  const movies = useMemo(() => data?.results ?? [], [data?.results]);
   const currentMovie = movies[activeIndex];
 
   useEffect(() => {
@@ -85,6 +86,7 @@ const HeroSection = () => {
             <FilmCarousel
               films={data?.results}
               isUsingCard={false}
+              cardNoRedirect={true}
               carouselBasisItem="lg:basis-1/7 md:basis-1/5 basis-1/3 px-2 cursor-pointer"
               activeItem={activeIndex}
               setActiveItem={setActiveIndex}
