@@ -27,25 +27,7 @@ const CustomPagination: React.FC<PaginationProps> = ({
 
   return (
     <Pagination className="my-2">
-      <PaginationContent className="md:hidden flex">
-        <PaginationItem>
-          <PaginationPrevious
-            onClick={() => onPageChange(currentPage - 1)}
-            aria-disabled={currentPage === 1}
-          />
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink isActive>{currentPage}</PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationNext
-            onClick={() => onPageChange(currentPage + 1)}
-            aria-disabled={currentPage === totalPages}
-          />
-        </PaginationItem>
-      </PaginationContent>
-
-      <PaginationContent className="hidden md:flex">
+      <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
             onClick={() => onPageChange(currentPage - 1)}
