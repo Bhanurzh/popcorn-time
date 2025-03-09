@@ -2,7 +2,7 @@ import { API_OPTIONS, BASE_API_URL } from "@/config";
 import { FilmReviewResponse } from "@/types/apiResponse";
 import { useEffect, useState } from "react";
 
-const useGetFilmReview = (id: number, type: string) => {
+const useGetFilmReview = (id: number, type: string, page: number = 1) => {
   const [filmReview, setFilmReview] = useState<FilmReviewResponse>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -12,7 +12,7 @@ const useGetFilmReview = (id: number, type: string) => {
       try {
         setIsLoading(true);
         const response = await fetch(
-          `${BASE_API_URL}/${type}/${id}/reviews`,
+          `${BASE_API_URL}/${type}/${id}/reviews?page=${page}`,
           API_OPTIONS
         );
         if (!response.ok) {
@@ -30,7 +30,7 @@ const useGetFilmReview = (id: number, type: string) => {
     };
 
     fetchFilmReview();
-  }, [id, type]);
+  }, [id, type, page]);
 
   return {
     filmReview,
