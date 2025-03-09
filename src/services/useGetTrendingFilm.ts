@@ -2,7 +2,11 @@ import { API_OPTIONS, BASE_API_URL } from "@/config";
 import { FilmListResponse } from "@/types/apiResponse";
 import { useEffect, useState } from "react";
 
-const useGetTrendingFilm = () => {
+const useGetTrendingFilm = (
+  page: number = 1,
+  trendingType: string,
+  trendingPeriod: string
+) => {
   const [trendingFilm, setTrendingFilm] = useState<FilmListResponse>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -12,7 +16,7 @@ const useGetTrendingFilm = () => {
       try {
         setIsLoading(true);
         const response = await fetch(
-          `${BASE_API_URL}/trending/all/day`,
+          `${BASE_API_URL}/trending/${trendingType}/${trendingPeriod}?page=${page}`,
           API_OPTIONS
         );
         if (!response.ok) {
@@ -29,7 +33,7 @@ const useGetTrendingFilm = () => {
     };
 
     fetchTrendingFilm();
-  }, []);
+  }, [page, trendingType, trendingPeriod]);
 
   return { data: trendingFilm, isLoading, error };
 };
