@@ -42,7 +42,7 @@ const HeroSection = () => {
           <figure className="absolute inset-0 w-full h-full">
             <img
               src={`https://image.tmdb.org/t/p/w1280/${currentMovie?.backdrop_path}`}
-              alt={currentMovie?.title}
+              alt={currentMovie?.title || currentMovie?.name}
               width={1000}
               height={1000}
               className="w-full h-full object-cover brightness-50"

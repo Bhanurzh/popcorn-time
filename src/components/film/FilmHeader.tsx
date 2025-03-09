@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import SearchInput from "../SearchInput";
-import { ChevronsRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 
 interface BaseProps {
   title: string;
@@ -36,29 +36,32 @@ const FilmHeader: React.FC<FilmHeaderProps> = ({
   return (
     <div>
       {isUseDefaultSearch && (
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center mb-4 w-full">
           <SearchInput
             searchTerm={searchTerm ?? ""}
             onSearchChange={setSearchTerm ?? (() => {})}
           />
         </div>
       )}
-      <div className="flex md:flex-row flex-col justify-between items-center gap-3">
-        <h2 className="text-2xl font-bold text-white sm:text-3xl text-left">
+      <div
+        className={`flex ${
+          children ? "md:flex-row flex-col" : "flex-row"
+        } justify-between items-center gap-3`}
+      >
+        <h2 className="md:text-2xl text-xl text-nowrap font-bold text-white text-left">
           {title}
         </h2>
         <div className="flex md:flex-row flex-col items-center gap-2 md:w-fit w-full">
-          {children ? (
-            children
-          ) : (
-            <Link
-              to={redirectLink ?? "/"}
-              className="flex items-center gap-1 md:text-lg text-md text-white font-semibold hover:text-red-primary hover:mr-2 transition-all duration-200"
-            >
-              See All <ChevronsRight size={18} />
-            </Link>
-          )}
+          {children && children}
         </div>
+        {!children && (
+          <Link
+            to={redirectLink ?? "/"}
+            className="flex items-center gap-1 md:text-lg text-md text-nowrap text-white font-semibold hover:text-red-primary hover:mr-2 transition-all duration-200"
+          >
+            See All <ChevronRight size={18} />
+          </Link>
+        )}
       </div>
     </div>
   );
