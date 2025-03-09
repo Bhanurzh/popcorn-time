@@ -2,6 +2,8 @@ import useGetFilmReview from "@/services/useGetFilmReview";
 import ReviewCard from "./ReviewCard";
 import ErrorCard from "@/components/ErrorCard";
 import { Skeleton } from "@/components/ui/skeleton";
+import CustomPagination from "@/components/Pagination";
+import { useState } from "react";
 
 interface FilmReviewProps {
   id: number;
@@ -9,7 +11,13 @@ interface FilmReviewProps {
 }
 
 const FilmReview: React.FC<FilmReviewProps> = ({ id, query }) => {
+  const [page, setPage] = useState<number>(1);
   const { filmReview, isLoading, error } = useGetFilmReview(id, query);
+
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return isLoading ? (
     <div className="m-4 p-4 bg-slate-700/10">
@@ -30,10 +38,15 @@ const FilmReview: React.FC<FilmReviewProps> = ({ id, query }) => {
       <div className="py-5 px-4 w-full flex flex-col gap-4">
         <p className="text-2xl font-bold text-white">Ratings & Reviews</p>
         <div className="flex flex-col gap-4 bg-slate-700/10 p-4 rounded-xl">
-          {filmReview?.results.map((review) => (
+          {filmReview?.results.slice((page - 1) * 5, page * 5).map((review) => (
             <ReviewCard review={review} />
           ))}
         </div>
+        <CustomPagination
+          currentPage={page}
+          totalPages={filmReview?.total_pages || 1}
+          onPageChange={handlePageChange}
+        />
       </div>
     )
   );
