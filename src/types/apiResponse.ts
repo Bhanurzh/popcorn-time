@@ -1,6 +1,7 @@
 import { Film, Review } from "./shares";
 
 export interface FilmListResponse {
+  dates?: Dates;
   page: number;
   results: Film[];
   total_pages: number;
@@ -13,4 +14,9 @@ export interface FilmReviewResponse {
   results: Review[];
   total_pages: number;
   total_results: number;
+}
+
+export interface Dates {
+  maximum: string;
+  minimum: string;
 }
