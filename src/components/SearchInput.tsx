@@ -12,7 +12,7 @@ const SearchInput = ({ searchTerm, onSearchChange }: SearchInputProps) => {
       <Input
         type="search"
         placeholder="Search movies..."
-        className="md:w-[300px] w-full placeholder:text-white text-white font-semibold px-4 py-6 rounded-xl border-2 border-red-primary focus:shadow-[0_0_15px_#aa1d1d]"
+        className="md:w-[300px] w-full placeholder:text-white text-white font-semibold px-4 py-6 rounded-xl border-[1.5px] border-red-primary focus:shadow-[0_0_15px_#aa1d1d]"
         value={searchTerm}
         onChange={(e) => onSearchChange(e.target.value)}
       />
