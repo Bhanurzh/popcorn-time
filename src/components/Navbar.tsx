@@ -6,6 +6,8 @@ import { Link, useLocation } from "react-router-dom";
 const navLinks = [
   { name: "Home", href: "/" },
   { name: "Trending", href: "/trending" },
+  { name: "Movie", href: "/movie" },
+  { name: "Tv Series", href: "/tv-series" },
 ];
 
 export default function Navbar() {
@@ -27,8 +29,8 @@ export default function Navbar() {
                   to={link.href}
                   className={`font-poppins font-bold text-lg transition duration-300 ${
                     isActive
-                      ? "text-red-primary border-b-2 border-red-primary"
-                      : "text-white hover:text-red-primary"
+                      ? "text-red-600 border-b-2 border-red-primary"
+                      : "text-white hover:text-red-600"
                   }`}
                   aria-current={isActive ? "page" : undefined}
                 >
@@ -43,7 +45,7 @@ export default function Navbar() {
       <Sheet>
         <SheetTrigger asChild>
           <Button
-            className="md:hidden bg-transparent hover:bg-white hover:text-red-primary transition duration-300"
+            className="md:hidden bg-transparent hover:bg-white hover:text-red-600 transition duration-300"
             aria-label="Open Menu"
           >
             <Menu className="size-6" />
@@ -66,8 +68,8 @@ export default function Navbar() {
                       to={link.href}
                       className={`font-poppins font-bold text-lg transition duration-300 ${
                         isActive
-                          ? "text-red-primary border-b-2 border-red-primary"
-                          : "text-white hover:text-red-primary"
+                          ? "text-red-600 border-b-2 border-red-primary"
+                          : "text-white hover:text-red-600"
                       }`}
                       aria-current={isActive ? "page" : undefined}
                     >
