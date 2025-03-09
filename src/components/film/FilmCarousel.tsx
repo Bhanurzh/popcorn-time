@@ -1,14 +1,14 @@
 import Autoplay from "embla-carousel-autoplay";
+import { Film } from "@/types/shares";
+import FilmCard from "@/components/film/FilmCard";
+import { Link } from "react-router-dom";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "./ui/carousel";
-import { Film } from "@/types/shares";
-import FilmCard from "@/components/FilmCard";
-import { Link } from "react-router-dom";
+} from "../ui/carousel";
 
 interface FilmCarouselProps {
   films?: Film[];
