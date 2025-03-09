@@ -1,7 +1,7 @@
 import ErrorCard from "@/components/ErrorCard";
 import useGetSimilarFilm from "@/services/useGetSimilarFilm";
-import FilmCarousel from "../../../components/FilmCarousel";
 import FilmCardSkeleton from "@/components/skeleton/FilmCardSkeleton";
+import FilmCarousel from "@/components/film/FilmCarousel";
 
 interface SimilarFilmProps {
   id: number;
@@ -17,6 +17,7 @@ const SimilarFilm: React.FC<SimilarFilmProps> = ({ id, query }) => {
     <div className="grid grid-cols-2 gap-3 md:gap-5 md:grid-cols-4 lg:grid-cols-6 py-6 px-4 min-h-[300px]">
       {Array.from({ length: 6 }).map((_, index) => (
         <FilmCardSkeleton
+          descSkeleton={true}
           key={index}
           extraClassName={`${index >= 2 ? "max-md:hidden" : ""} ${
             index >= 4 ? "max-lg:hidden" : ""
