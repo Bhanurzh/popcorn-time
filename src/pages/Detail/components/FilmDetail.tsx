@@ -47,7 +47,7 @@ const FilmDetailSection: React.FC<FilmDetailSectionProps> = ({ id, query }) => {
         className="absolute object-cover w-full h-full"
       />
       <div className="flex justify-center items-center py-5 px-4">
-        <Card className="bg-dark-primary/80 backdrop-blur-sm w-6xl border-none">
+        <Card className="bg-detail-dark-primary backdrop-blur-sm w-6xl border-none">
           <CardHeader className="flex justify-between items-center flex-row text-white">
             <MoveLeft
               onClick={() => navigate("/")}
@@ -68,7 +68,7 @@ const FilmDetailSection: React.FC<FilmDetailSectionProps> = ({ id, query }) => {
               className="w-full md:w-1/3 rounded-lg"
               loading="lazy"
             />
-            <div className="flex flex-col justify-between md:gap-0 gap-2 text-white">
+            <div className="flex flex-col justify-between md:gap-2 gap-2 text-white">
               <div className="flex flex-col gap-2">
                 <FilmOverview
                   detailMovie={detailMovie}

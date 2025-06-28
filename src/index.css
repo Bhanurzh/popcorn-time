@@ -25,6 +25,10 @@
 }
 
 @layer utilities {
+  .bg-detail-dark-primary {
+    background-color: rgb(20 20 20 / 0.8);
+  }
+
   .loader {
     width: 60px;
     aspect-ratio: 2;
